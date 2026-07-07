@@ -6,7 +6,7 @@ requires = [
 
 [project]
 name = "isca_val_ui"
-version = "0.1.1"
+version = "0.1.2"
 description='Toolkit to validate the input of the ISCA Archive'
 readme = {file="README.md", content-type = "text/markdown"}
 authors = [

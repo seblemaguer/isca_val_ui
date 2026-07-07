@@ -1,0 +1,1 @@
+recursive-include ./src/isca_val_ui/resources *.qml
