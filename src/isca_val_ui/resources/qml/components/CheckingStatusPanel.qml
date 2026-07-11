@@ -21,7 +21,7 @@ GroupBox {
     GridView {
         id: checkListView
         anchors.fill: parent
-        cellWidth: 170; cellHeight: 80
+        cellWidth: 170; cellHeight: 40
         clip: true
         model: checked_panel.paper?.checkList
 

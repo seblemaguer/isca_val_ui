@@ -41,7 +41,7 @@ Item {
 
         CheckingStatusPanel {
             Layout.fillWidth: true
-            Layout.preferredHeight: 300
+            Layout.preferredHeight: 160
             paper: pdfBrowser.currentPaper
         }
 
