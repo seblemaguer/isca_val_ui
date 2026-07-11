@@ -54,6 +54,24 @@ class AuthorModel(QAbstractListModel):
             self.AffiliationRole: b"affiliation",
         }
 
+    def roleFromName(self, name:str) -> int:
+        """Get the role names
+
+        Returns
+        -------
+        dict[Any, bytes]
+            The association of the role identifier and its string (in bytes) representation
+        """
+        name2role = {
+            "email": self.EmailRole,
+            "firstName": self.FirstNameRole,
+            "lastName": self.LastNameRole,
+            "affiliation": self.AffiliationRole,
+        }
+
+        return name2role[name]
+
+
     def data(self, index, role=Qt.DisplayRole):
         """Access the data
 
@@ -83,6 +101,31 @@ class AuthorModel(QAbstractListModel):
         elif role == self.AffiliationRole:
             return person["affiliation"] if "affiliation" in person else ""
         return None
+
+    @Slot(int, str, "QVariant", result=bool)
+    def setRole(self, row, role_name, value):
+        idx = self.index(row, 0)
+        return self.setData(idx, value, self.roleFromName(role_name))
+
+    def setData(self, index, value, role=Qt.EditRole) -> bool:
+        if not index.isValid():
+            return False
+
+        person = self._authors[index.row()]
+        if role == self.EmailRole:
+            person["email"] = value
+        elif role == self.FirstNameRole:
+            person["first_name"] = value
+        elif role == self.LastNameRole:
+            person["last_name"] = value
+        elif role == self.AffiliationRole:
+            person["affiliation"] = value
+        else:
+            return False
+
+        self.dataChanged.emit(index, index, role)
+        return True
+
 
     @Slot(int, int)
     def moveItem(self, from_row_index: int, to_row_index: int) -> bool:

@@ -81,7 +81,9 @@ GroupBox {
                     height: parent.height - header.height
                     model: authorPanel.paper ? authorPanel.paper.authors : []
                     clip: true
-                    delegate: AuthorItem {}
+                    delegate: AuthorItem {
+                        authorModel: listView.model
+                    }
 
                     move: Transition {
                         NumberAnimation {

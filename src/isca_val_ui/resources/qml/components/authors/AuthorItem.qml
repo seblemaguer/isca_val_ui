@@ -9,6 +9,7 @@ Item {
     width: listView.width
     height: 60
 
+    required property var authorModel
     required property string email
     required property string firstName
     required property string lastName
@@ -92,7 +93,7 @@ Item {
                     }
                 }
                 onEditingFinished: function() {
-                    root.email = text
+                    authorModel.setRole(index, "email", text)
                 }
 
                 Component.onCompleted: {
@@ -116,7 +117,7 @@ Item {
                     }
                 }
                 onEditingFinished: function() {
-                    root.firstName = text
+                    authorModel.setRole(index, "firstName", text)
                 }
 
                 Component.onCompleted: {
@@ -140,7 +141,7 @@ Item {
                     }
                 }
                 onEditingFinished: function() {
-                    root.lastName = text
+                    authorModel.setRole(index, "lastName", text)
                 }
                 Component.onCompleted: {
                     cursorPosition = 0
@@ -163,7 +164,7 @@ Item {
                     }
                 }
                 onEditingFinished: function() {
-                    root.affiliation = text
+                    authorModel.setRole(index, "affiliation", text)
                 }
                 Component.onCompleted: {
                     cursorPosition = 0
