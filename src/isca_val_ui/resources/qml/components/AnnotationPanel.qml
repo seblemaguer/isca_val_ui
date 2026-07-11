@@ -22,6 +22,12 @@ Item {
         height: parent.height
         spacing: 5
 
+        Button {
+            Layout.alignment: Qt.AlignCenter
+            text: "Save"
+            onClicked: saveFileDialog.open()
+        }
+
         TitlePanel {
             paper: pdfBrowser.currentPaper
             Layout.fillWidth: true
@@ -43,12 +49,6 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: 160
             paper: pdfBrowser.currentPaper
-        }
-
-        Button {
-            Layout.alignment: Qt.AlignCenter
-            text: "Save"
-            onClicked: saveFileDialog.open()
         }
     }
 }
