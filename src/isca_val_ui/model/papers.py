@@ -5,7 +5,7 @@ import re
 import pathlib
 
 from ruamel.yaml import YAML
-from PySide6.QtCore import Qt, QObject, Property, QAbstractListModel, QModelIndex, Slot, Signal
+from PySide6.QtCore import Qt, QObject, Property, QAbstractListModel, QModelIndex, Slot, Signal, QUrl
 
 from .authors import AuthorModel
 from .checklist import CheckListModel
@@ -107,19 +107,19 @@ class Paper(QObject):
 
         return self._id
 
-    @Property(str, constant=True)
-    def pdf_file(self) -> str:
+    @Property(QUrl, constant=True)
+    def pdf_file(self) -> QUrl:
         """Getter of the PDF path of the paper
 
         This value cannot be changed, so it is defined as a constant
 
         Returns
         -------
-        str
-            The path of the PDF of the paper
+        QUrl
+            The URL of the PDF file
         """
 
-        return self._pdf_file
+        return QUrl.fromLocalFile(self._pdf_file)
 
     @Property(str, notify=titleChanged)
     def title(self) -> str:
@@ -373,13 +373,13 @@ class PaperModel(QAbstractListModel):
             self.PaperRole: b"paper",
         }
 
-    @Slot(str)
-    def save(self, file_uri: str):
+    @Slot(QUrl)
+    def save(self, file_uri: QUrl):
         """Slot to save the paper model to a YAML report
 
         Parameters
         ----------
-        file_uri : str
+        file_uri : QUrl
             The URI of the target file
         """
 
@@ -389,7 +389,7 @@ class PaperModel(QAbstractListModel):
                 "title": paper.title,
                 "authors": paper.authors.serialize(),
                 "abstract": extract_color_spans(paper.abstract),
-                "pdf_file": paper.pdf_file,
+                "pdf_file": paper.pdf_file.toLocalFile(),
                 "checked": paper.checked,
                 "issues": paper.checkList.serialize(),
             }
@@ -397,6 +397,6 @@ class PaperModel(QAbstractListModel):
         yaml_io = YAML(typ="rt", pure=True)
         yaml_io.preserve_quotes = True
         yaml_io.indent(mapping=2, sequence=4, offset=2)
-        file_path = pathlib.Path(file_uri.replace("file://", ""))
+        file_path = pathlib.Path(file_uri.toLocalFile())
         with open(file_path, "w") as f_out:
             yaml_io.dump({"papers": papers}, f_out)
