@@ -398,5 +398,5 @@ class PaperModel(QAbstractListModel):
         yaml_io.preserve_quotes = True
         yaml_io.indent(mapping=2, sequence=4, offset=2)
         file_path = pathlib.Path(file_uri.toLocalFile())
-        with open(file_path, "w") as f_out:
+        with open(file_path, "w", encoding="utf-8") as f_out:
             yaml_io.dump({"papers": papers}, f_out)
