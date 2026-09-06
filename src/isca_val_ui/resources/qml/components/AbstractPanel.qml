@@ -39,8 +39,8 @@ GroupBox {
             }
 
             text: abstractPanel.paper?.abstract ?? ""
-            onEditingFinished: {
-                if (abstractPanel.paper) {
+            onTextChanged: {
+                if (abstractPanel.paper && abstractPanel.paper.abstract !== text) {
                     abstractPanel.paper.abstract = text
                 }
             }

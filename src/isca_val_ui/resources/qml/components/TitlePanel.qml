@@ -19,8 +19,8 @@ GroupBox {
             border.color: Material.foreground
         }
 
-        onEditingFinished: function() {
-            if (title_panel.paper) {
+        onTextChanged: {
+            if (title_panel.paper && title_panel.paper.title !== text) {
                 title_panel.paper.title = text
             }
         }
