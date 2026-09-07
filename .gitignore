@@ -2,3 +2,12 @@
 *egg-info/
 __pycache__/
 auto/
+
+.DS_Store
+.venv/
+.idea/
+
+/desc.yaml
+/report.yaml
+/check_pdfs/
+/pdfs/

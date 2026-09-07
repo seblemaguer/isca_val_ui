@@ -9,7 +9,6 @@ import "authors"
 Item {
     FileDialog {
         id: saveFileDialog
-        modality: Qt.ApplicationModal
         fileMode: FileDialog.SaveFile
         nameFilters: ["Report (*.yaml *.yml)"]
         onAccepted: {

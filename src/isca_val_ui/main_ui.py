@@ -183,7 +183,7 @@ def load_report_yaml(yaml_input_file: pathlib.Path) -> dict:
     yaml_io.indent(mapping=2, sequence=4, offset=2)
 
     # Load file list from YAML
-    with open(yaml_input_file, "r") as f:
+    with open(yaml_input_file, "r", encoding="utf-8") as f:
         content_yaml = commentedmap_to_dict(yaml_io.load(f), yaml_input_file.resolve().parent)
 
     return content_yaml["papers"]
@@ -208,7 +208,7 @@ def load_desc_yaml(yaml_input_file: pathlib.Path) -> dict:
     yaml_io.indent(mapping=2, sequence=4, offset=2)
 
     # Load file list from YAML
-    with open(yaml_input_file, "r") as f:
+    with open(yaml_input_file, "r", encoding="utf-8") as f:
         content_yaml = commentedmap_to_dict(yaml_io.load(f), yaml_input_file.resolve().parent)
 
     return content_yaml
